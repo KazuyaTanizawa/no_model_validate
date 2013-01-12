@@ -1,0 +1,45 @@
+<h1>Listing authors</h1>
+<%= form_for(@search,:url=>{:action => :index},:method => :get) do |f| %>
+    <% if @search.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@search.errors.count, "") %> エラーが発生しています</h2>
+
+          <ul>
+            <% @search.errors.full_messages.each do |msg| %>
+                <li><%=  msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+
+      <%= f.text_field :title %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "検索" %>
+    </div>
+<% end %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @authors.each do |author| %>
+  <tr>
+    <td><%= author.name %></td>
+    <td><%= link_to 'Show', author %></td>
+    <td><%= link_to 'Edit', edit_author_path(author) %></td>
+    <td><%= link_to 'Destroy', author, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Author', new_author_path %>
